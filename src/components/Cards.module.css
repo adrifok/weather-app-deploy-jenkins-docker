@@ -1,0 +1,14 @@
+.cards{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.love {
+    left: 10px;
+    bottom: 0;
+    font-weight: 400;
+    font-size: 0.9em;
+    background-color: rgb(176, 161, 240);
+    position: absolute;
+}

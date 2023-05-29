@@ -1,0 +1,17 @@
+body {
+ 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+}
+body, input{
+  
+  font-family: 'Sono', sans-serif;
+}
+:root{
+  --border-color: #ffffff57;
+  --card-bkg-color:#928c8c88;
+  --btn-bkg-danger: #0FAB1F;
+  --btn-bkg-danger-hover: #e4d33c;
+}
+
