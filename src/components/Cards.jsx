@@ -18,7 +18,7 @@ export default function Cards({cities, onClose}) {
       onClose={() => onClose(city.id)}
       />
         ))}
-         <h3 className={style.love}>Made with &hearts; from Adriana Ferrari</h3>
+         <h3 className={style.love}>Made with &hearts; by Adriana Ferrari</h3>
     </div>
   );
 };
