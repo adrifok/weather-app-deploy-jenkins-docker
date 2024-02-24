@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Source Code') {
             steps {
-                // Checkout the source code from GitHub
+                // Checkout the source code from  your repo in GitHub
                 git branch: 'main', url: 'https://github.com/adrifok/weather-app-deploy-vercel.git'
             }
         }
