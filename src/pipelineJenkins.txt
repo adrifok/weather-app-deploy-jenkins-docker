@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Source Code') {
+            steps {
+                // Checkout the source code from GitHub
+                git branch: 'main', url: 'https://github.com/adrifok/weather-app-deploy-vercel.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Verify that the Dockerfile exists
+                    sh "ls -l /var/lib/jenkins/workspace/weather-app/Dockerfile"
+
+                    // Print the Dockerfile contents
+                    sh "cat /var/lib/jenkins/workspace/weather-app/Dockerfile"
+
+                    // Build the Docker image
+                    withDockerRegistry(credentialsId: ''yourcredentials, toolName: 'docker') {
+                        sh "docker build -t weather-app -f Dockerfile ."
+                        sh "docker tag weather-app yourusername/weatherapp:latest"
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'yourcredentials', toolName: 'docker') {
+                        sh "docker push yourusername/weatherapp:latest"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy To Docker Container') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'yourcredentials', toolName: 'docker') {
+                        // Remove existing container if present
+                        sh "docker rm -f weatherapp-container || true"
+                        // Run the new container on a different port
+                        sh "docker run -d --name weatherapp-container -p 8081:3000 yourusername/weatherapp:latest"
+                    }
+                }
+            }
+        }
+    }
+}
