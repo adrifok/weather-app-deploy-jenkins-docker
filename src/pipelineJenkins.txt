@@ -12,7 +12,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Verify that the Dockerfile exists
+                    // Verify that the Dockerfile exists in the EC2
                     sh "ls -l /var/lib/jenkins/workspace/weather-app/Dockerfile"
 
                     // Print the Dockerfile contents
