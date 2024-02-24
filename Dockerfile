@@ -1,11 +1,20 @@
 # Use node version
 FROM node:14.17.6
 
-# Copy the src folder into the Tomcat webapps directory
-COPY /weather-app-deploy-vercel/src /usr/local/tomcat/webapps/weatherapp.war
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-# Expose the port that Tomcat will use (8080 by default)
-EXPOSE 8080
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
-# The default command to run when starting the container will start Tomcat
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application
+COPY . .
+
+# Expose the port that the app will listen on
+EXPOSE 3000
+
+# Command to run the application
 CMD ["npm", "start"]
